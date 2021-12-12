@@ -137,8 +137,8 @@ function displayFitness(){
 }
 
 function updateValues(){
-  document.getElementById("x1").innerText=(Math.round(xmin[0][0]*1e7)/1e7).toString();
-  document.getElementById("x2").innerText=(Math.round(xmin[1][0]*1e7)/1e7).toString();
+  document.getElementById("x1").innerText=(Math.round(xmin[0][0]*1e7)/1e7).toExponential(6);
+  document.getElementById("x2").innerText=(Math.round(xmin[1][0]*1e7)/1e7).toExponential(6);
   document.getElementById("fmin").innerText=fmin.toExponential(6);
   document.getElementById("g").innerText=g;
 }
