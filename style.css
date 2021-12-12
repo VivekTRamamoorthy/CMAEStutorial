@@ -1,0 +1,65 @@
+*,*::after,*::before{
+    box-sizing: border-box;
+}
+
+body{
+    margin:0;
+    padding:0;
+
+}
+
+h1{
+    align-self: center;
+}
+h2{
+    color:dodgerblue;
+}
+
+#canvasDiv{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.section{
+    margin:0% 5%;
+    padding:0% 0%;
+}
+
+.values{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 1;
+    flex-grow: 0;
+    padding:20px 5px;
+}
+
+.value{
+    width:10%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.CMAESbuttonsdiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.buttons{
+    background-color: #eee;
+    color:black;
+    font-size: large;
+    width:20%;
+    height:40px;
+
+    padding:5px;
+    margin:10px;
+}
+.buttons:hover{
+    background-color: #333;
+    color: white;
+}

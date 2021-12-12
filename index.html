@@ -7,17 +7,89 @@
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, user-scalable=1">
     
     <!-- <script src="http://cdn.jsdelivr.net/gh/VivekTRamamoorthy/MatlabJS/Matlab.js"></script> -->
-    <script  src="Matlab.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjs@10/lib/browser/math.min.js"></script>
-    <script  src="CMAES.js"></script>
+    <script defer src="Matlab.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjs@10/lib/browser/math.min.js"></script>
+    <script defer src="colormap.js"></script>
+    <script defer src="main.js"></script>
+    <script defer src="CMAES.js"></script>
+
+    
+    <!-- LATEX equation interpreter -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+    
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js" integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O" crossorigin="anonymous"></script>
+    
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js" integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+    
+    <link rel="stylesheet" href="style.css" >
+
 </head>
 
 <body>
+    <div class="section">
+
+
+    <h1>Covariance Matrix Adaptation-Evolution Strategy</h1>
+    CMA-ES is a popular continuous optimisation strategy shown to outperform many other strategies.
+    It was first introduced by Nikolaus Hansen.
+    </div>
+
+    <div class="section">
+
+    <h2>Problem</h2>
+    Let's consider the following simple problem:
+    <p>\( \min \qquad f= x^2_{1} + x^2_{2}  \)<br><br>
+        \( \text{where:} \) <br><br>
+        \( \qquad \qquad x_1 , x_2 \in [-1,1] \) </p>
     
-    <h1>Tutorial for CMA-ES</h1>
-    <div class="CMAESbuttonsdiv">
-        <button id="initiate" onclick="CMAES()">Initiate</button>
+    </div>
+    <!-- Crete canvas elemnt check
+        plot the contours 
+        plot the sample points check
+        create button for each generation check
+        create lines for eigen vectors & possibly write eigen values check
+        update for xmean visualised -->
+    
+    <div class="section">
+        <h2>Run CMAES</h2>
+        <div class="CMAESbuttonsdiv">
+            <button class="buttons" onclick="CMAESgeneration()">Run 1 generation</button>
+            <button class="buttons" onclick="CMAESrunToggle()" id="runToggleButton">Keep running</button>
+            <button class="buttons" onclick="reset()">Reset</button>
+
+        </div>
+        <div class="values">
+            <div class="value">\( x_1^* =  \)</div>
+            <div class="value" id="x1"> </div>
+            <div class="value">\( x_2^* =  \)</div>
+            <div class="value" id="x2"> </div>
+            <div class="value">\( f_{min} = \)</div>
+            <div class="value" id="fmin"> </div>
+            <div class="value">\( g = \)</div>
+            <div class="value" id="g"> </div>
+
+        </div>
+        <div id="canvasDiv">
+            <canvas id="canvas"></canvas>
+        </div>
+
     </div>
     
+
+    <div class="section" id="references">
+        <h2>References</h2>
+        <a href="https://arxiv.org/abs/1604.00772v1" id="ref1" target="_blank">1</a> 
+        Hansen, Nikolaus. "The CMA evolution strategy: A tutorial." arXiv preprint arXiv:1604.00772 (2016). 
+        <br>
+        <a href="https://ieeexplore.ieee.org/abstract/document/6790790" id="ref1">2</a> 
+        Hansen, Nikolaus, Sibylle D. Müller, and Petros Koumoutsakos. "Reducing the time complexity of the derandomized evolution strategy with covariance matrix adaptation (CMA-ES)." Evolutionary computation 11, no. 1 (2003): 1-18.
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
 </body>
 </html>
