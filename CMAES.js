@@ -3,8 +3,7 @@
 // Code converted from purecmaes.m MATLAB code by Nikolas Hansen
 // insert github link for cma-es here
 
-
-
+// CMAES script
 
 var objfunc=function(x){ return sum([...x].map(elem=>elem**2));}
 var xinit= [[1],[1]]
@@ -51,7 +50,6 @@ var arx=zeros(N,lambda);
 var arfitness=zeros(1,lambda);
 var g=0;
 var fmin;
-console.log('Initialised');
 
 
 // -------------------- Generation Loop --------------------------------
@@ -121,18 +119,9 @@ function CMAESgeneration(){
   xmin=get(arx,':', arindex[0]);
   fmin=min(arfitness);
   // Notice that xmean is expected to be even better.
-
+  
   // display values
   updateValues();
-  
-}
-
-
-function displayFitness(){
-  console.log("Final solution:")
-  disp(xmin)
-  console.log("Fitness:")
-  disp(fmin)
   
 }
 
@@ -184,53 +173,53 @@ function reset(){
   document.getElementById("runToggleButton").innerText="Keep running";
   updateValues();
   clc();
-
-
-// --------------------  Initialization --------------------------------  
-// User defined input parameters (need to be edited)  
- N = 2;               // number of objective variables/problem dimension
- xmean = rand(N,1);//[...Array(N)].map(_=>Math.random()); // objective variables initial point
- sigma = 0.3;          // coordinate wise standard deviation (step size)
- stopfitness = 1e-10;  // stop if fitness < stopfitness (minimization)
- stopeval = 120; // 1e3*N^2; 
-
-// Strategy parameter setting: Selection  
- lambda = 4+Math.floor(3*Math.log(N)); // population size, offspring number
- mu = Math.floor(lambda/2);  // number of parents/points for recombination
- weights = [...Array(mu)].map((_elem,index)=>Math.log(mu+0.5)-Math.log(index+1));
-weights=transpose(weights); //  weights = Math.log(mu+1/2)-Math.log(1:mu)'; % muXone array for weighted recombination
- sum_weights = sum(weights);
-weights = div(weights,sum_weights);   // normalize recombination weights array
- mueff = 1/( weights.map(elem=>elem*elem).reduce((a, b) => a + b, 0)); // variance-effectiveness of sum w_i x_i
-
-
-// Strategy parameter setting: Adaptation
- cc = (4 + mueff/N) / (N+4 + 2*mueff/N); // time constant for cumulation for C
- cs = (mueff+2) / (N+mueff+5);  // t-const for cumulation for sigma control
- c1 = 2 / (Math.pow(N+1.3,2)+mueff);    // learning rate for rank-one update of C
- cmu = Math.min(1-c1, 2 * (mueff-2+1/mueff) / (Math.pow(N+2,2)+mueff));  // and for rank-mu update
- damps = 1 + 2*Math.max(0, Math.sqrt((mueff-1)/(N+1))-1) + cs; // damping for sigma usually close to 1
-
-
-// Initialize dynamic (internal) strategy parameters and constants
- pc =  zeros(N,1);
- ps =  zeros(N,1);                 // evolution paths for C and sigma
- B = eye(N,N);                     // B defines the coordinate system
- D = ones(N,1);                    // diagonal D defines the scaling
- C = eye(N,N);                     // covariance matrix C (simplification here)
- invsqrtC =   mul(mul(B,diag(pow(D,-1))), transpose(B))   // C^-1/2  (simplification here) 
- eigeneval = 0;                    // track update of B and D
- chiN = Math.pow(N,0.5)*(1-1/(4*N)+1/(21*N*N));  // expectation of  ||N(0,I)|| == norm(randn(N,1))
-
-
-
+  
+  
+  // --------------------  Initialization --------------------------------  
+  // User defined input parameters (need to be edited)  
+  N = 2;               // number of objective variables/problem dimension
+  xmean = rand(N,1);//[...Array(N)].map(_=>Math.random()); // objective variables initial point
+  sigma = 0.3;          // coordinate wise standard deviation (step size)
+  stopfitness = 1e-10;  // stop if fitness < stopfitness (minimization)
+  stopeval = 120; // 1e3*N^2; 
+  
+  // Strategy parameter setting: Selection  
+  lambda = 4+Math.floor(3*Math.log(N)); // population size, offspring number
+  mu = Math.floor(lambda/2);  // number of parents/points for recombination
+  weights = [...Array(mu)].map((_elem,index)=>Math.log(mu+0.5)-Math.log(index+1));
+  weights=transpose(weights); //  weights = Math.log(mu+1/2)-Math.log(1:mu)'; % muXone array for weighted recombination
+  sum_weights = sum(weights);
+  weights = div(weights,sum_weights);   // normalize recombination weights array
+  mueff = 1/( weights.map(elem=>elem*elem).reduce((a, b) => a + b, 0)); // variance-effectiveness of sum w_i x_i
+  
+  
+  // Strategy parameter setting: Adaptation
+  cc = (4 + mueff/N) / (N+4 + 2*mueff/N); // time constant for cumulation for C
+  cs = (mueff+2) / (N+mueff+5);  // t-const for cumulation for sigma control
+  c1 = 2 / (Math.pow(N+1.3,2)+mueff);    // learning rate for rank-one update of C
+  cmu = Math.min(1-c1, 2 * (mueff-2+1/mueff) / (Math.pow(N+2,2)+mueff));  // and for rank-mu update
+  damps = 1 + 2*Math.max(0, Math.sqrt((mueff-1)/(N+1))-1) + cs; // damping for sigma usually close to 1
+  
+  
+  // Initialize dynamic (internal) strategy parameters and constants
+  pc =  zeros(N,1);
+  ps =  zeros(N,1);                 // evolution paths for C and sigma
+  B = eye(N,N);                     // B defines the coordinate system
+  D = ones(N,1);                    // diagonal D defines the scaling
+  C = eye(N,N);                     // covariance matrix C (simplification here)
+  invsqrtC =   mul(mul(B,diag(pow(D,-1))), transpose(B))   // C^-1/2  (simplification here) 
+  eigeneval = 0;                    // track update of B and D
+  chiN = Math.pow(N,0.5)*(1-1/(4*N)+1/(21*N*N));  // expectation of  ||N(0,I)|| == norm(randn(N,1))
+  
+  
+  
   counteval = 0;
- arx=zeros(N,lambda);
- arfitness=zeros(1,lambda);
- g=0;
- fmin=NaN;
- xmin=xmean;
-
- updateValues();
-
+  arx=zeros(N,lambda);
+  arfitness=zeros(1,lambda);
+  g=0;
+  fmin=NaN;
+  xmin=xmean;
+  
+  updateValues();
+  
 }

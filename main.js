@@ -30,9 +30,7 @@ function ytoPx(yvalue){
 }
 
 function drawAxes(){
-    
-    
-    
+    // Draws the axes
     let fontSizePx=15; // canvas.height/50;
     c.font = fontSizePx+ 'px Arial';
     c.fillStyle='#000000' ;
@@ -85,38 +83,9 @@ function drawAxes(){
         
     }
     c.stroke();
-    
-    
-    // for(var i=0;i<=100;i++){
-    // 	c.lineTo(this.x+springWidth/2*Math.sin(i/100*10*Math.PI),meanposy+this.y+r/2+i/100*(meanposy-this.y-r/2));
-    
-    // // Draws a spring
-    // c.beginPath();
-    // c.moveTo(this.x,meanposy+this.y+r/2);
-    // for(var i=0;i<=100;i++){
-    // 	c.lineTo(this.x+springWidth/2*Math.sin(i/100*10*Math.PI),meanposy+this.y+r/2+i/100*(meanposy-this.y-r/2));
-    
-    // }
-    // c.strokeStyle = 'blue';
-    // c.lineWidth = 8;
-    // c.stroke();
-    
-    // // Fill a rectangle
-    // c.fillStyle='rgba(255,50,50,0.8)' ;
-    // c.fillRect(this.x-r/2,meanposy+this.y-r/2,r,r)
-    
-    
-    // //  Write text M
-    // c.font = r/2+ 'px Arial';
-    // c.fillStyle='#000000' ;
-    // c.textAlign='center';
-    // c.fillText('M', this.x, meanposy+this.y+r/4);
-    
-    
-    
-    
 }
-var color
+
+// var color
 
 function drawContours(){
     c.lineWidth = 2;
