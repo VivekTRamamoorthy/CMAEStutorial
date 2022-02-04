@@ -121,11 +121,11 @@ function CMAESgeneration(){
   // Notice that xmean is expected to be even better.
   
   // display values
-  updateValues();
+  updateValuesToScreen();
   
 }
 
-function updateValues(){
+function updateValuesToScreen(){
   document.getElementById("x1").innerText=(Math.round(xmin[0][0]*1e7)/1e7).toExponential(6);
   document.getElementById("x2").innerText=(Math.round(xmin[1][0]*1e7)/1e7).toExponential(6);
   document.getElementById("fmin").innerText=fmin.toExponential(6);
@@ -171,7 +171,7 @@ function reset(){
   
   isRunning=0;
   document.getElementById("runToggleButton").innerText="Keep running";
-  updateValues();
+  updateValuesToScreen();
   clc();
   
   
@@ -220,6 +220,6 @@ function reset(){
   fmin=NaN;
   xmin=xmean;
   
-  updateValues();
+  updateValuesToScreen();
   
 }
