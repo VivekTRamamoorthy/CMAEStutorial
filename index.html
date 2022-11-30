@@ -13,7 +13,7 @@
     <script defer src="colormap.js"></script>
     <script defer src="main.js"></script>
     <script defer src="CMAES.js"></script>
-
+    
     
     <!-- LATEX equation interpreter -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
@@ -22,30 +22,28 @@
     <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js" integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O" crossorigin="anonymous"></script>
     
     <!-- To automatically render math in text elements, include the auto-render extension: -->
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js" integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF" crossorigin="anonymous"
-    onload="renderMathInElement(document.body);"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js" integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
     
     <link rel="stylesheet" href="style.css" >
-
+    
 </head>
 
 <body>
     <div class="section">
-
-
-    <h1>Covariance Matrix Adaptation-Evolution Strategy</h1>
-    CMA-ES is a popular continuous optimisation strategy shown to outperform many other strategies.
-    It was first introduced by Nikolaus Hansen.
+        
+        
+        <h1>Covariance Matrix Adaptation-Evolution Strategy</h1>
+        CMA-ES is a powerful continuous optimisation strategy known many other strategies introduced by Nikolaus Hansen.
     </div>
-
-    <div class="section">
-
-    <h2>Problem</h2>
-    Let's consider the following simple problem:
-    <p>\( \min \qquad f= x^2_{1} + x^2_{2}  \)<br><br>
-        \( \text{where:} \) <br><br>
-        \( \qquad \qquad x_1 , x_2 \in [-1,1] \) </p>
     
+    <div class="section">
+        
+        <h2>Problem</h2>
+        Let's consider the following simple problem:
+        <p>\( \min \qquad f= x^2_{1} + x^2_{2}  \)        <br><br>
+            \( \qquad \qquad x_1 , x_2 \in [-1,1] \) 
+        </p>
+        
     </div>
     
     <div class="section">
@@ -54,7 +52,7 @@
             <button class="buttons" onclick="CMAESgeneration()">Run 1 generation</button>
             <button class="buttons" onclick="CMAESrunToggle()" id="runToggleButton">Keep running</button>
             <button class="buttons" onclick="reset()">Reset</button>
-
+            
         </div>
         <div class="values">
             <div class="value">\( x_1^* =  \)</div>
@@ -65,15 +63,39 @@
             <div class="value" id="fmin"> </div>
             <div class="value">\( g = \)</div>
             <div class="value" id="g"> </div>
-
+            
         </div>
         <div id="canvasDiv">
             <canvas id="canvas"></canvas>
         </div>
-
+        
     </div>
     
+    <div class="section" id="instructions">
+        <h2>Instructions</h2>
+        <ol>
+            <li>Click on "Run 1 generation" or "Keep running" buttons to see CMAES in action.  </li>
+            <li>Click "Reset" to initiate from the beginning.</li>
+        </ol>
+    </div>
 
+    <div class="section" id="pseudocode">
+        <h2>How CMA-ES works?</h2>
+        <ol>
+            <li>CMA-ES is a population-based heuristic strategy which improves the current set of solutions through an evolutionary process to reach the optimal solution</li>
+            <li>It uses a multi-variate Gaussian to represent the population in a generation.</li>
+            <li>In this case the initial guess is set to be \( \mathbf{x}^{mean} = [1, 1]^T  \) with a standard deviation of \( 0.3 \) for both \( x_1\) and \(x_2\).</li>
+            <li>In each generation, <ul>
+                <li>CMA-ES generates sample points \( [x_1,x_2]^T \)</li>
+                <li>Updates the covariance matrix using the \(f \) values obtained at the sampled points </li>
+            <li>Updates the mean value of the sampling distribution toward the direction of improvement  </li>
+            </ul></li>
+            <li>The process is repeated until a satisfactory result is achieved.</li>
+
+
+        </ol>
+    </div>
+    
     <div class="section" id="references">
         <h2>References</h2>
         <a href="https://arxiv.org/abs/1604.00772v1" id="ref1" target="_blank">1</a> 

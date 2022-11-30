@@ -2,13 +2,12 @@
 var canvas=document.getElementById("canvas");
 
 var c=canvas.getContext("2d");
-canvas.width=0.8*Math.min(window.innerHeight,window.innerWidth);
-canvas.height=0.8*Math.min(window.innerHeight,window.innerWidth);
-canvas.style="border:1px solid black;"
+canvas.width = canvas.clientWidth;
+canvas.height = canvas.clientHeight;
 
 window.addEventListener("resize",function(){
-    canvas.width=0.7*Math.min(window.innerHeight,window.innerWidth);
-    canvas.height=0.7*Math.min(window.innerHeight,window.innerWidth);
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
 })
 
 

@@ -65,3 +65,24 @@ h2{
     background-color: #333;
     color: white;
 }
+
+canvas{
+    width: min(50vh,50vw);
+    height: min(50vh,50vw);
+    border:2px solid black;
+}
+
+@media (min-width:420px) and (max-width:768px) {
+    canvas{
+    width: min(80vh,80vw);
+    height: min(80vh,80vw);
+    }
+    
+}
+@media (max-width:420px)  {
+    canvas{
+    width: min(90vh,90vw);
+    height: min(90vh,90vw);
+    }
+    
+}
