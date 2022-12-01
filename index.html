@@ -94,7 +94,7 @@
             <li>It uses a multi-variate Gaussian to represent the current population in a generation.</li>
             <li>Then, in each generation, <ul>
                 <li>CMA-ES generates sample points using the mean \( \mathbf{x}^{mean} \) and the covariance matrix \( \begin{bmatrix} \sigma^2_{x_1} &\sigma^2_{x_1,x_2}\\ \sigma^2_{x_2,x_1}& \sigma^2_{x_2} \end{bmatrix}   \) of the multi-variate Gaussian. </li>
-                <li>Updates the covariance matrix using the \(f \) values obtained at the sampled points. </li>
+                <li>Updates the covariance matrix using the fitness values (\(f \)) obtained at the sampled points. </li>
                 <li>Updates the mean value of the sampling distribution toward the direction of improvement.  </li>
             </ul></li>
             <li>The process is repeated until a satisfactory result is achieved.</li>
@@ -116,19 +116,20 @@
                     <div>Mean:</div>
                     <div class="covarianceMatrixMeanInputs">
                         <div class="rangeslider">
-                            <div>\(\mu_1 \) <label for="mu1"></label></div> 
+                            <div>\(x^{mean}_1 \) <label for="mu1"></label></div> 
                             <input type="range" name="mu1" id="mu1" min="-10" max="10" value="3" step="any" oninput="getSliderValues()">
                         </div>
                         <div class="rangeslider">
-                            <div>\(\mu_2 \)<label for="mu2"></label></div>
+                            <div>\(x^{mean}_2 \)<label for="mu2"></label></div>
                             <input type="range" name="mu2" id="mu2" min="-10" max="10" value="3" step="any" oninput="getSliderValues()">
                         </div>
                     </div>
+                    <br>
                     <div >Covariance Matrix: </div>
                     <div class="covarianceMatrixInputs">
                         <div class="rangeslider">
                             <div>\( C_{11} \)<label for="C11"></label></div>
-                            <input type="range" name="C11" id="C11" min="0" value="10" max="30" step="any" oninput="getSliderValues()">
+                            <input type="range" name="C11" id="C11" min="0" value="25" max="30" step="any" oninput="getSliderValues()">
                         </div>
                         <div class="rangeslider">
                             <div>\( C_{12} \)<label for="C12"></label></div>
@@ -143,6 +144,7 @@
                             <input type="range" name="C22" id="C22" min="0" value="10" max="30" step="any" oninput="getSliderValues()">
                         </div>
                     </div>
+                    <br>
                     <div >Number of sampled points: </div>
                     <div class="rangeslider">
                         <div>\( N \)<label for="N"></label></div>
@@ -161,10 +163,11 @@
                 <li>Changing the covariances \( C_{12} \) or \( C_{21} \) will adjust the interdependence of the variables </li>
             </ol>
         </p>
-        <p>Note that the scale for covariances \( C_{12} \) and \( C_{21} \) is updated such that the range corresponds to a correlation of \(-1 \) to \( 1\). 
+        <p>Note that the scale for covariances \( C_{12} \) and \( C_{21} \) is updated such that the range corresponds to 
+            a correlation between \(-1 \) to \( 1\). 
         This is because, there exists an upper limit for covariance of two variables given by \( \lceil C_{12} \rceil  = \sqrt{C_{11} C_{22}} \).   </p>
         <p>By using the fitness values at the sampled points, the CMA-ES algorithm makes clever adaptations to the covariance matrix and mean values, 
-            and thereby performs effective optimisation. For a more detailed explanation of the adaptation procedures, one may refer to the following resources. </p>
+            and thereby performs effective optimisation. For a details on the adaptation procedures, one may refer to the following resources. </p>
     </div>
     
     
