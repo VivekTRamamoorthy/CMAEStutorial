@@ -72,7 +72,7 @@ function CMAESgeneration(){
     counteval++;
     
     // plotting points
-    drawPoint(arx[0][k],arx[1][k])
+    drawPoint(xtoPx(arx[0][k]),ytoPx(arx[1][k]))
   }
   
   

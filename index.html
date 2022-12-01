@@ -13,6 +13,7 @@
     <script defer src="colormap.js"></script>
     <script defer src="main.js"></script>
     <script defer src="CMAES.js"></script>
+    <script defer src="covarianceMatrix.js"></script>
     
     
     <!-- LATEX equation interpreter -->
@@ -33,40 +34,47 @@
         
         
         <h1>Covariance Matrix Adaptation-Evolution Strategy</h1>
-        CMA-ES is a powerful continuous optimisation strategy known many other strategies introduced by Nikolaus Hansen.
+        CMA-ES is a continuous optimisation metaheuristic known for its powerful global optimisation capabilities.
     </div>
     
     <div class="section">
         
         <h2>Problem</h2>
-        Let's consider the following simple problem:
-        <p>\( \min \qquad f= x^2_{1} + x^2_{2}  \)        <br><br>
-            \( \qquad \qquad x_1 , x_2 \in [-1,1] \) 
+        <p>Let's consider the following simple problem: <br>
+            \( \min \qquad f= x^2_{1} + x^2_{2}  \)  <br>
+            The solution is obviously \(x_1 = 0 \) and \( x_2 = 0 \). Let's use CMA-ES to find this.
         </p>
         
     </div>
     
     <div class="section">
         <h2>Run CMAES</h2>
-        <div class="CMAESbuttonsdiv">
-            <button class="buttons" onclick="CMAESgeneration()">Run 1 generation</button>
-            <button class="buttons" onclick="CMAESrunToggle()" id="runToggleButton">Keep running</button>
-            <button class="buttons" onclick="reset()">Reset</button>
+        
+        <div class="app">
+            <div id="canvasDiv">
+                <canvas id="canvas"></canvas>
+            </div>
+            <div class="controlpanel">
+                
+                <div class="CMAESbuttonsdiv">
+                    <button class="buttons" onclick="CMAESgeneration()">Run 1 generation</button>
+                    <button class="buttons" onclick="CMAESrunToggle()" id="runToggleButton">Keep running</button>
+                    <button class="buttons" onclick="reset()">Reset</button>
+                    
+                </div>
+                <div class="values">
+                    <div class="value">\( x_1^* =  \)</div>
+                    <div class="value" id="x1"> </div>
+                    <div class="value">\( x_2^* =  \)</div>
+                    <div class="value" id="x2"> </div>
+                    <div class="value">\( f_{min} = \)</div>
+                    <div class="value" id="fmin"> </div>
+                    <div class="value">\( gen = \)</div>
+                    <div class="value" id="g"> </div>
+                    
+                </div>
+            </div>
             
-        </div>
-        <div class="values">
-            <div class="value">\( x_1^* =  \)</div>
-            <div class="value" id="x1"> </div>
-            <div class="value">\( x_2^* =  \)</div>
-            <div class="value" id="x2"> </div>
-            <div class="value">\( f_{min} = \)</div>
-            <div class="value" id="fmin"> </div>
-            <div class="value">\( g = \)</div>
-            <div class="value" id="g"> </div>
-            
-        </div>
-        <div id="canvasDiv">
-            <canvas id="canvas"></canvas>
         </div>
         
     </div>
@@ -78,23 +86,76 @@
             <li>Click "Reset" to initiate from the beginning.</li>
         </ol>
     </div>
-
+    
     <div class="section" id="pseudocode">
         <h2>How CMA-ES works?</h2>
         <ol>
-            <li>CMA-ES is a population-based heuristic strategy which improves the current set of solutions through an evolutionary process to reach the optimal solution</li>
-            <li>It uses a multi-variate Gaussian to represent the population in a generation.</li>
-            <li>In this case the initial guess is set to be \( \mathbf{x}^{mean} = [1, 1]^T  \) with a standard deviation of \( 0.3 \) for both \( x_1\) and \(x_2\).</li>
-            <li>In each generation, <ul>
-                <li>CMA-ES generates sample points \( [x_1,x_2]^T \)</li>
-                <li>Updates the covariance matrix using the \(f \) values obtained at the sampled points </li>
-            <li>Updates the mean value of the sampling distribution toward the direction of improvement  </li>
+            <li>CMA-ES is a population-based heuristic strategy that improves a population of candidate solutions through an evolutionary process to reach a near-optimal solution.</li>
+            <li>It uses a multi-variate Gaussian to represent the current population in a generation.</li>
+            <li>Then, in each generation, <ul>
+                <li>CMA-ES generates sample points using the mean \( \mathbf{x}^{mean} \) and the covariance matrix \( \begin{bmatrix} \sigma^2_{x_1} &\sigma^2_{x_1,x_2}\\ \sigma^2_{x_2,x_1}& \sigma^2_{x_2} \end{bmatrix}   \) of the multi-variate Gaussian. </li>
+                <li>Updates the covariance matrix using the \(f \) values obtained at the sampled points. </li>
+                <li>Updates the mean value of the sampling distribution toward the direction of improvement.  </li>
             </ul></li>
             <li>The process is repeated until a satisfactory result is achieved.</li>
-
-
+            <li>In the above example problem, the initial guess is set to be \( \mathbf{x}^{mean} = [1, 1]^T  \) with an initial standard deviation of \( 0.3 \) for both \( x_1\) and \(x_2\) and no covariance.</li>
+            
+            
         </ol>
     </div>
+    
+    <div class="section" id="covariancematrix">
+        <h2>Understanding the covariance matrix</h2>
+        <p>
+            Change the covariance matrix using the sliders to see how the sampled distribution changes.
+        </p>
+        <div class="app">
+            <canvas id="covariance"></canvas>
+            <div class="control-panel">
+                <div class="CMAESButtonsDiv">
+                    <div>Mean:</div>
+                    <div class="covarianceMatrixMeanInputs">
+                        <div class="rangeslider">
+                            <div>\(\mu_1 \) <label for="mu1"></label></div> 
+                            <input type="range" name="mu1" id="mu1" min="-10" max="10" value="3" step="any" oninput="getSliderValues()">
+                        </div>
+                        <div class="rangeslider">
+                            <div>\(\mu_2 \)<label for="mu2"></label></div>
+                            <input type="range" name="mu2" id="mu2" min="-10" max="10" value="3" step="any" oninput="getSliderValues()">
+                        </div>
+                    </div>
+                    <div >Covariance Matrix: </div>
+                    <div class="covarianceMatrixInputs">
+                        <div class="rangeslider">
+                            <div>\( C_{11} \)<label for="C11"></label></div>
+                            <input type="range" name="C11" id="C11" min="0" value="10" max="30" step="any" oninput="getSliderValues()">
+                        </div>
+                        <div class="rangeslider">
+                            <div>\( C_{12} \)<label for="C12"></label></div>
+                            <input type="range" name="C12" id="C12" min="-1" value="0" max="1" step="0.1" oninput="getSliderValues()">
+                        </div>
+                        <div class="rangeslider">
+                            <div>\( C_{21} \)<label for="C21"></label></div>
+                            <input type="range" name="C21" id="C21" min="-1" value="0" max="1" step="0.1" oninput="getSliderValues(true)">
+                        </div>
+                        <div class="rangeslider">
+                            <div>\( C_{22} \)<label for="C22"></label></div>
+                            <input type="range" name="C22" id="C22" min="0" value="10" max="30" step="any" oninput="getSliderValues()">
+                        </div>
+                    </div>
+                    <div >Number of sampled points: </div>
+                    <div class="rangeslider">
+                        <div>\( N \)<label for="N"></label></div>
+                        <input type="range" name="N" id="N" min="2" value="40" max="100" step="any" oninput="getSliderValues()">
+                    </div>
+                </div>
+                <div class="values">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
     
     <div class="section" id="references">
         <h2>References</h2>

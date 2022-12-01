@@ -5,7 +5,8 @@
 body{
     margin:0;
     padding:0;
-
+    font-size: 1.25rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 h1{
@@ -26,17 +27,7 @@ h2{
     padding:0% 0%;
 }
 
-.values{
-    display:flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-basis: 1;
-    flex-grow: 0;
-    padding:20px 5px;
-    gap: 1rem;
-}
+
 
 .value{
     text-align: center;
@@ -57,13 +48,28 @@ h2{
     color:black;
     font-size: large;
     align-self: stretch;
-    width:20%;
     padding:5px;
     margin:10px;
+    font:inherit;
 }
 .buttons:hover{
     background-color: #333;
     color: white;
+}
+.app{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap:1rem;
+}
+.CMAESbuttonsdiv{
+    display:flex;
+    flex-direction: column;
+}
+.values{
+    display:grid;
+    grid-template-columns: auto auto;
 }
 
 canvas{
@@ -72,17 +78,66 @@ canvas{
     border:2px solid black;
 }
 
+.covarianceMatrixInputs{
+    display:grid;
+    grid-template-columns: auto auto;
+}
+.rangeslider{
+    display:flex;
+    align-items: center;
+    justify-self: center;
+    flex-direction: column;
+}
+
 @media (min-width:420px) and (max-width:768px) {
     canvas{
     width: min(80vh,80vw);
     height: min(80vh,80vw);
     }
-    
+    .app{
+        flex-direction: column;
+    }
+    .CMAESbuttonsdiv{
+        display:flex;
+        flex-direction: row;
+    }
+    .values{
+        display:flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-basis: 1;
+        flex-grow: 0;
+        padding:20px 5px;
+        gap: 1rem;
+    }
 }
+
+
 @media (max-width:420px)  {
     canvas{
     width: min(90vh,90vw);
     height: min(90vh,90vw);
+    }
+    .app{
+        flex-direction: column;
+    }
+
+    .CMAESbuttonsdiv{
+        display:flex;
+        flex-direction: row;
+    }
+    .values{
+        display:flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-basis: 1;
+        flex-grow: 0;
+        padding:20px 5px;
+        gap: 1rem;
     }
     
 }

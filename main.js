@@ -14,24 +14,26 @@ window.addEventListener("resize",function(){
 
 
 // PLOTTING 
-let paddingPx=40;
+let paddingX=60;
+let paddingY=60;
 let xlim=[-1,1];
 let ylim=[-1,1];
 let xspan=xlim[1]-xlim[0];
 let yspan=ylim[1]-ylim[0];
 
 function xtoPx(xvalue){
-    return (xvalue - xlim[0])/(xlim[1]-xlim[0])*(canvas.width-2*paddingPx)+paddingPx;
+    return (xvalue - xlim[0])/(xlim[1]-xlim[0])*(canvas.width-2*paddingY)+paddingY;
 }
 
 function ytoPx(yvalue){
-    return canvas.height -((yvalue - ylim[0])/(ylim[1]-ylim[0])*(canvas.height-2*paddingPx)+paddingPx);
+    return canvas.height -((yvalue - ylim[0])/(ylim[1]-ylim[0])*(canvas.height-2*paddingX)+paddingX);
 }
 
 function drawAxes(){
     // Draws the axes
-    let fontSizePx=15; // canvas.height/50;
-    c.font = fontSizePx+ 'px Arial';
+    let body = document.querySelector('body')
+    let fontSizePx=parseInt(window.getComputedStyle(body).getPropertyValue("font-size").slice(0,-2)); // canvas.height/50;
+    c.font = fontSizePx+ 'px Verdana';
     c.fillStyle='#000000' ;
     c.textAlign='center';
     
@@ -62,7 +64,7 @@ function drawAxes(){
     
     
     // x Ticks
-    let xTicks=range(xlim[0],xspan/10,xlim[1])
+    let xTicks=range(xlim[0],xspan/5,xlim[1])
     for (let i = 0; i < xTicks.length; i++) {
         xvalue = Math.round((xTicks[i])*100)/100;
         c.moveTo( xtoPx(xvalue),ytoPx(ylim[0]+.01*yspan )) ;
@@ -71,9 +73,12 @@ function drawAxes(){
         
     }
     c.stroke();
+    // x label
+    let xCenter = (xlim[0]+xlim[1])/2;
+    c.fillText('x_1', xtoPx(xCenter),ytoPx(ylim[0]-.07*yspan)+fontSizePx );
     
     // y Ticks
-    let yTicks=range(ylim[0],yspan/10,ylim[1])
+    let yTicks=range(ylim[0],yspan/5,ylim[1])
     for (let i = 0; i < xTicks.length; i++) {
         yvalue = Math.round((xTicks[i])*100)/100;
         c.moveTo( xtoPx(xlim[0]-.01*yspan),ytoPx( yvalue)) ;
@@ -82,6 +87,9 @@ function drawAxes(){
         
     }
     c.stroke();
+    // y lable
+    let yCenter = (ylim[0]+ylim[1])/2;
+    c.fillText('x_2', xtoPx(xlim[0]-.05*xspan)-fontSizePx, ytoPx(yCenter),);
 }
 
 // var color
@@ -108,12 +116,22 @@ function drawCircle(cx,cy,r,color){
     c.stroke();
 }
 
-function drawPoint(cx,cy){
+// function drawPoint(cx,cy,r=0.03){
+//     c.strokeStyle= "blue";//"rgb(200,200,200)"; // from color value
+//     c.beginPath()
+//     for (let theta = 0; theta <= Math.PI*2; theta=theta+0.01*Math.PI) {
+//         c.lineTo(xtoPx(cx+r*Math.cos(theta)), ytoPx(cy+r*Math.sin(theta)));
+//     }
+//     c.fillStyle='blue' ;
+//     c.stroke();
+// }
+
+function drawPoint(cx,cy,r=4){
+
     c.strokeStyle= "blue";//"rgb(200,200,200)"; // from color value
-    let r=.03;
     c.beginPath()
     for (let theta = 0; theta <= Math.PI*2; theta=theta+0.01*Math.PI) {
-        c.lineTo(xtoPx(cx+r*Math.cos(theta)), ytoPx(cy+r*Math.sin(theta)));
+        c.lineTo(cx+r*Math.cos(theta), cy+r*Math.sin(theta));
     }
     c.fillStyle='blue' ;
     c.stroke();
