@@ -154,6 +154,16 @@
                 </div>
             </div>
         </div>
+        <p>
+            <ol>
+                <li>Changing the mean values will move the region where the points are sampled.</li>
+                <li>Changing the variances \( C_{11} & C_{22} \) will adjust the spread of the sampled points in the corresponding directions</li>
+                <li>Changing the covariances \( C_{12} \) or \( C_{21} \) will adjust the interdependence of the variables </li>
+            </ol>
+        </p>
+        <p>Note that the scale for covariances \( C_{12} \) and \( C_{21} \) is updated such that the range corresponds to a correlation of \(-1 \) to \( 1\). 
+        This is because, the upper limit for covariance of two variables is the \( \lceil C_{12} \rceil  = \sqrt{C_{11} C_{22}} \).   </p>
+        <p>By using the fitness values at the sampled points, the CMA-ES algorithm makes clever adaptations to the covariance matrix and mean values, and thereby performs effective optimisation.</p>
     </div>
     
     
