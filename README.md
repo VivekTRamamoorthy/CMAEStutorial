@@ -1,5 +1,5 @@
 # [CMA-ES Interactive Demo](https://vivektramamoorthy.github.io/CMAEStutorial/)
-This is an web demonstrator that provides a friendly introduction to the Covariance Matrix Adaptation-Evolution Strategy.
+This is a web demonstrator that provides a friendly introduction to the Covariance Matrix Adaptation-Evolution Strategy (CMA-ES).
 
 ## How do I use it?
 Open the webpage [here!](https://vivektramamoorthy.github.io/CMAEStutorial/)
