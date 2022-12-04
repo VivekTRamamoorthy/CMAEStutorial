@@ -46,7 +46,6 @@ function getSliderValues(chooseC21 = false){
     C21.labels[0].innerText = "= "+(covarianceMatrixDemoState.C21*covarianceUpperLimit).toPrecision(2);
     C22.labels[0].innerText = "= "+covarianceMatrixDemoState.C22.toPrecision(2);
     N.labels[0].innerText = "= "+covarianceMatrixDemoState.N;
-    console.log(covarianceMatrixDemoState);
     updateCovarianceMatrixPlot(covarianceMatrixDemoState)
 }
 
@@ -54,8 +53,6 @@ function getSliderValues(chooseC21 = false){
 
 
 function updateCovarianceMatrixPlot(state){
-    console.log('Resampling and plotting');
-
     // get canvas
     let canvas = document.getElementById('covariance');
     canvas.width = canvas.clientWidth;
@@ -153,9 +150,23 @@ function updateCovarianceMatrixPlot(state){
     ctx.fillStyle="blue" ;
     ctx.strokeStyle= "blue";//"rgb(200,200,200)"; // from color value
     for (let i = 0; i < N; i++) {
-        // sampling one point
-        let xsampled = (add(xmean, mul(sigma,mul(B,dotmul(D,randn(2,1))))));
-        console.log(''+xsampled[0][0]+ ' '+xsampled[1][0]);
+        // sampling one point OLD method
+        // let xsampled = (add(xmean, mul(sigma,mul(B,dotmul(D,randn(2,1))))));
+        // console.log(''+xsampled[0][0]+ ' '+xsampled[1][0]);
+
+        // sampling using https://stats.stackexchange.com/questions/120179/generating-data-with-a-given-sample-covariance-matrix
+        let cholC = chol(C);
+        let xsampled;
+        if(cholC === -1){
+            xsampled = [[state.mu1],[state.mu2]]; // fallback for cholesky failed
+        }
+        else{
+            disp(cholC);
+            disp(mul(cholC,transpose(cholC)));
+            disp(C)
+            let xsampledT = mul(randn(1,2), cholC);
+            xsampled = [[state.mu1+xsampledT[0][0]],[state.mu2+xsampledT[0][1]]];
+        }
         
         // draw points
         let cx = xToPx(xsampled[0][0])
