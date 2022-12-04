@@ -114,8 +114,10 @@ function updateCovarianceMatrixPlot(state){
     // decomposing C
     let temp=math.eigs(C);
     let B=transpose(temp.vectors);
+    disp(B)
     let D=transpose(temp.values);
-    D=sqrt((D));
+    disp(D)
+    // D=sqrt((D));
     
     
     
@@ -150,9 +152,9 @@ function updateCovarianceMatrixPlot(state){
     ctx.fillStyle="blue" ;
     ctx.strokeStyle= "blue";//"rgb(200,200,200)"; // from color value
     for (let i = 0; i < N; i++) {
-        // sampling one point OLD method
+        // sampling one point Eigen value method
+        // let xsampled = (add(xmean, mul(B,dotmul(D,randn(2,1)))));
         // let xsampled = (add(xmean, mul(sigma,mul(B,dotmul(D,randn(2,1))))));
-        // console.log(''+xsampled[0][0]+ ' '+xsampled[1][0]);
 
         // sampling using https://stats.stackexchange.com/questions/120179/generating-data-with-a-given-sample-covariance-matrix
         let cholC = chol(C);
@@ -161,8 +163,9 @@ function updateCovarianceMatrixPlot(state){
             xsampled = [[state.mu1],[state.mu2]]; // fallback for cholesky failed
         }
         else{
+            disp("chol(C)")
             disp(cholC);
-            disp(mul(cholC,transpose(cholC)));
+            disp("C")
             disp(C)
             let xsampledT = mul(randn(1,2), cholC);
             xsampled = [[state.mu1+xsampledT[0][0]],[state.mu2+xsampledT[0][1]]];

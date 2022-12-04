@@ -1,7 +1,7 @@
 function chol(A){
     if(A instanceof Array && A[0] instanceof Array && typeof(A[0][0]) =="number"){
         if (A.length ==2 && A[0].length ==2){
-            // let L = [[a,0],[b,c]]; L*L^T =A = [[a^2, ab],[ab, b^2+c^2]]
+            // let R = [[a,b],[0,c]]; R^T*R =A = [[a^2, ab],[ab, b^2+c^2]]
             if (A[0][0]<0){
                 console.error("cholesky failed"); 
                 return -1;
@@ -16,7 +16,8 @@ function chol(A){
                 return -1;
             }
             let c = Math.sqrt(c2)
-            return L=[[a,0],[b,c]];
+            let R=[[a,b],[0,c]];
+            return R;
         }
         console.error("chol() not implemented for >2 matrix sizes")
         return -1;
