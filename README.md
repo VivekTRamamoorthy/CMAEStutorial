@@ -8,7 +8,7 @@ Open the webpage [here!](https://vivektramamoorthy.github.io/CMAEStutorial/)
 
 ![CMAES demo screenshot](./img/CMAESdemo.png)
 
-- Play with the covariance matrix coefficients in 2D and understand what the elements signify.+
+- Play with the covariance matrix coefficients in 2D and understand what the elements signify.
 
 ![Covariance Matrix demo](./img/CovarianceMatrixDemo.png)
 
