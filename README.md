@@ -5,8 +5,11 @@ This is a web demonstrator that provides a friendly introduction to the Covarian
 Open the webpage [here!](https://vivektramamoorthy.github.io/CMAEStutorial/)
 ## What you can do with this?
 - Test and visualise CMA-ES in action for a simple convex optimisation problem.
+
 ![CMAES demo screenshot](./img/CMAESdemo.png)
-- Play with the covariance matrix coefficients in 2D and understand what the elements signify.
+
+- Play with the covariance matrix coefficients in 2D and understand what the elements signify.+
+
 ![Covariance Matrix demo](./img/CovarianceMatrixDemo.png)
 
 ## License
