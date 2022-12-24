@@ -49,9 +49,6 @@ function getSliderValues(chooseC21 = false){
     updateCovarianceMatrixPlot(covarianceMatrixDemoState)
 }
 
-
-
-
 function updateCovarianceMatrixPlot(state){
     // get canvas
     let canvas = document.getElementById('covariance');
@@ -114,12 +111,7 @@ function updateCovarianceMatrixPlot(state){
     // decomposing C
     let temp=math.eigs(C);
     let B=transpose(temp.vectors);
-    disp(B)
     let D=transpose(temp.values);
-    disp(D)
-    // D=sqrt((D));
-    
-    
     
     // draw Circle
     let drawCircle = function(cx,cy,r){
@@ -142,12 +134,7 @@ function updateCovarianceMatrixPlot(state){
         ctx.beginPath()
         ctx.moveTo(cx+direction[0][0], cy+direction[1][0]);
         ctx.lineTo(cx+direction[0][0]*(r-4)/r, cy+direction[1][0]*(r-4)/r);
-
-
     }
-   
-
-    
     // Draw sampled points
     ctx.fillStyle="blue" ;
     ctx.strokeStyle= "blue";//"rgb(200,200,200)"; // from color value
@@ -163,10 +150,7 @@ function updateCovarianceMatrixPlot(state){
             xsampled = [[state.mu1],[state.mu2]]; // fallback for cholesky failed
         }
         else{
-            disp("chol(C)")
-            disp(cholC);
-            disp("C")
-            disp(C)
+
             let xsampledT = mul(randn(1,2), cholC);
             xsampled = [[state.mu1+xsampledT[0][0]],[state.mu2+xsampledT[0][1]]];
         }
@@ -181,16 +165,9 @@ function updateCovarianceMatrixPlot(state){
             ctx.lineTo(cx+r*Math.cos(theta), cy+r*Math.sin(theta));
         }
         ctx.stroke();
-
-
-
     }
-
      // Draw the mean
      ctx.fillStyle="red" ;
      ctx.strokeStyle= "red";//"rgb(200,200,200)"; // from color value
      drawCircle(xToPx(xmean[0][0]),yToPx(xmean[1][0]),4)
-
-
-
 }

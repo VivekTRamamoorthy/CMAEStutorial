@@ -58,10 +58,6 @@ var genmax
 
 // -------------------- Generation Loop --------------------------------
 for (let g = 0; g < genmax; g++) {
-
-  
-  console.log("Generation:"+g)
-  
   // base plot
   c.clearRect(0,0,canvas.width,canvas.height)
   drawAxes()
@@ -143,7 +139,6 @@ function testpurecmaes(){
   CMAdata.xinit = [[1], [1]];
 
  [xmin, fmin ] = purecmaes(CMAdata.objfunc,CMAdata.xinit);
-  console.log({xmin,fmin})
 }
 
 

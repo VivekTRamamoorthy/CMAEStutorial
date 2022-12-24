@@ -10,9 +10,6 @@ window.addEventListener("resize",function(){
     canvas.height = canvas.clientHeight;
 })
 
-
-
-
 // PLOTTING 
 let paddingX=60;
 let paddingY=60;
@@ -116,19 +113,9 @@ function drawCircle(cx,cy,r,color){
     c.stroke();
 }
 
-// function drawPoint(cx,cy,r=0.03){
-//     c.strokeStyle= "blue";//"rgb(200,200,200)"; // from color value
-//     c.beginPath()
-//     for (let theta = 0; theta <= Math.PI*2; theta=theta+0.01*Math.PI) {
-//         c.lineTo(xtoPx(cx+r*Math.cos(theta)), ytoPx(cy+r*Math.sin(theta)));
-//     }
-//     c.fillStyle='blue' ;
-//     c.stroke();
-// }
-
 function drawPoint(cx,cy,r=4){
 
-    c.strokeStyle= "blue";//"rgb(200,200,200)"; // from color value
+    c.strokeStyle= "blue";
     c.beginPath()
     for (let theta = 0; theta <= Math.PI*2; theta=theta+0.01*Math.PI) {
         c.lineTo(cx+r*Math.cos(theta), cy+r*Math.sin(theta));

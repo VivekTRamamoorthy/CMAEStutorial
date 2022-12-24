@@ -17,7 +17,7 @@ var stopfitness = 1e-10;  // stop if fitness < stopfitness (minimization)
 var stopeval = 120; // 1e3*N^2; 
 
 // Strategy parameter setting: Selection  
-var lambda = 4+Math.floor(3*Math.log(N)); // population size, offspring number
+var lambda = 20// 4+Math.floor(3*Math.log(N)); // population size, offspring number
 var mu = Math.floor(lambda/2);  // number of parents/points for recombination
 var weights = [...Array(mu)].map((_elem,index)=>Math.log(mu+0.5)-Math.log(index+1));
 weights=transpose(weights); //  weights = Math.log(mu+1/2)-Math.log(1:mu)'; % muXone array for weighted recombination
@@ -56,9 +56,6 @@ var fmin;
 
 function CMAESgeneration(){
   g++;
-  
-  console.log("Generation:"+g)
-  
   // base plot
   c.clearRect(0,0,canvas.width,canvas.height)
   drawAxes()
@@ -149,7 +146,6 @@ function CMAESrunToggle(){
 
 function CMAESupdateLoop(){
   if(isRunning==1){
-    console.log("run a generation")
     CMAESgeneration();
     window.requestAnimationFrame(CMAESupdateLoop);
   }else{
@@ -182,7 +178,7 @@ function reset(){
   stopeval = 120; // 1e3*N^2; 
   
   // Strategy parameter setting: Selection  
-  lambda = 4+Math.floor(3*Math.log(N)); // population size, offspring number
+  lambda = 20// 4+Math.floor(3*Math.log(N)); // population size, offspring number
   mu = Math.floor(lambda/2);  // number of parents/points for recombination
   weights = [...Array(mu)].map((_elem,index)=>Math.log(mu+0.5)-Math.log(index+1));
   weights=transpose(weights); //  weights = Math.log(mu+1/2)-Math.log(1:mu)'; % muXone array for weighted recombination
