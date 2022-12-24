@@ -5,7 +5,7 @@
 body{
     margin:0;
     padding:0;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -115,7 +115,10 @@ canvas{
 }
 
 
-@media (max-width:420px)  {
+@media (max-width:432px)  {
+    body{
+        font-size: min(1rem,4vw);
+    }
     canvas{
     width: min(90vh,90vw);
     height: min(90vh,90vw);
@@ -127,6 +130,9 @@ canvas{
     .CMAESbuttonsdiv{
         display:flex;
         flex-direction: row;
+    }
+    .CMAESbuttonsdiv button{
+        margin:0.1rem;
     }
     .values{
         display:flex;
